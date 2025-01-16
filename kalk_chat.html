@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+
+<script>
+    function prikaz(broj) {
+        document.getElementById("result").value += broj;
+    }
+    
+    function racunaj() {
+        let x = document.getElementById("result").value;
+        try {
+            let y = eval(x);
+            document.getElementById("result").value = y;
+            dodajHistoriju(x + " = " + y);
+        } catch (e) {
+            alert("Greška u unosu!");
+        }
+    }
+    
+    function brisi() {
+        document.getElementById("result").value = "";
+    }
+    
+    function promijeniZnak() {
+        let polje = document.getElementById("result");
+        polje.value = polje.value.startsWith("-") ? polje.value.substring(1) : "-" + polje.value;
+    }
+
+    function kvadratniKorijen() {
+        let x = document.getElementById("result").value;
+        try {
+            let y = Math.sqrt(eval(x));
+            document.getElementById("result").value = y;
+            dodajHistoriju("√" + x + " = " + y);
+        } catch (e) {
+            alert("Greška u unosu!");
+        }
+    }
+
+    function kvadratBroja() {
+        let x = document.getElementById("result").value;
+        try {
+            let y = Math.pow(eval(x), 2);
+            document.getElementById("result").value = y;
+            dodajHistoriju(x + "² = " + y);
+        } catch (e) {
+            alert("Greška u unosu!");
+        }
+    }
+
+    function dodajHistoriju(izracun) {
+        let historija = document.getElementById("historija");
+        let noviUnos = document.createElement("p");
+        noviUnos.textContent = izracun;
+        historija.appendChild(noviUnos);
+    }
+</script>
+
+<style>
+    input[type="text"]
+	{
+	background-color:lightgreen;
+	width:100%;
+	}
+
+    .historija {
+        margin-top: 20px;
+        padding: 10px;
+        background-color: #f4f4f4;
+        border: 1px solid #ccc;
+        max-height: 150px;
+        overflow-y: auto;
+    }
+</style>
+</head>
+<body>
+    <h3 style="text-align:center">KALKULATOR</h3>
+    <table align="center" border="1" style="background-color:lightgrey">
+        <tr>
+			<td colspan="4" style="height:80px">
+			<input type="text" style="height:70px" id="result"/></td>
+		</tr>
+        <tr>
+			<td><input type="button" style="height:40px" value="     1     " onClick="prikaz('1')"/></td>
+			<td><input type="button" style="height:40px" value="     2     " onClick="prikaz('2')"/></td>
+			<td><input type="button" style="height:40px" value="     3     " onClick="prikaz('3')"/></td>
+			<td><input type="button" style="height:40px" value="     +     " onClick="prikaz('+')"/></td>
+		</tr>
+		
+		<tr>
+			<td><input type="button" style="height:40px" value="     4     " onClick="prikaz('4')"/></td>
+			<td><input type="button" style="height:40px" value="     5     " onClick="prikaz('5')"/></td>
+			<td><input type="button" style="height:40px" value="     6     " onClick="prikaz('6')"/></td>
+			<td><input type="button" style="height:40px" value="     -     " onClick="prikaz('-')"/></td>
+		</tr>
+		<tr>
+			<td><input type="button" style="height:40px" value="     7     " onClick="prikaz('7')"/></td>
+			<td><input type="button" style="height:40px" value="     8     " onClick="prikaz('8')"/></td>
+			<td><input type="button" style="height:40px" value="     9     " onClick="prikaz('9')"/></td>
+			<td><input type="button" style="height:40px" value="     *     " onClick="prikaz('*')"/></td>
+		</tr>
+		<tr>
+			<td><input type="button" style="height:40px" value="     .     " onClick="prikaz('.')"/></td>
+			<td><input type="button" style="height:40px" value="     0     " onClick="prikaz('0')"/></td>
+			<td><input type="button" style="height:40px" value="     =     " onClick="racunaj()"/></td>
+			<td><input type="button" style="height:40px" value="     /     " onClick="prikaz('/')"/></td>
+		</tr>
+		
+		
+		
+		<tr>
+            <td><input type="button" style="height:40px" value="    √    " onClick="kvadratniKorijen()"/></td>
+            <td><input type="button" style="height:40px" value="    ^    " onClick="kvadratBroja()"/></td>
+            <td><input type="button" style="height:40px" value="    +/-    " onClick="promijeniZnak()"/></td>
+            <td><input type="button" style="height:40px" value="    C    " onClick="brisi()"/></td>
+        </tr>
+		
+	
+    </table>
+    <div class="historija" id="historija">
+        <h4>Historija izračuna:</h4>
+    </div>
+</body>
+</html>

@@ -1,0 +1,69 @@
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<title>BiH-Španija</title>
+<script src="funkcijespanija.js"></script>
+</head>
+
+<body onload="izracunajRezultat('rezultat')">
+<div id="evidencija" align="center">
+
+<b><h1>Bosna i Hercegovina - Španija</h1></b>
+<h2 id="rezultat"></h2>
+
+<form>
+<table border="1">
+<tr>
+<td colspan="2" align="center">
+Unos evidencije
+</td>
+</tr>
+
+<tr>
+<td>
+Reprezentacija:
+</td>
+<td>
+<select id="tim">
+<option value="Bosna">Bosna i Hercegovina</option>
+<option value="Spanija">Španija</option>
+</select>
+</td>
+</tr>
+
+<tr>
+<td>
+Vrijeme:
+</td>
+<td>
+<input type="text" id="vrijeme"/>
+</td>
+</tr>
+
+<tr>
+<td colspan="2" align="center">
+<input type="button" value="DODAJ" onclick="dodajGol()"/>
+</td>
+</tr>
+</table>
+</form>
+</div>
+
+<br><br>
+<div id="tabela" align="center">
+</div>
+
+<br><br>
+<div align="center">
+<tr>
+<td> RB: </td>
+<td>
+<input type="text" id="stavka"/>
+</td>
+<td>
+<input type="button" value="PONISTI" onclick="obrisi()"/>
+</td>
+</tr>
+</div>
+
+</body>
+</html>

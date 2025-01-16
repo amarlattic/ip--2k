@@ -1,0 +1,115 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	<title> Bosnia and Herzegovina - Argentina </title>
+</head>
+
+<body>
+<div style="width: 50%; margin: 0 auto;">
+<h2> Bosnia and Herzegovina - Argentina </h2>
+
+
+Dodaj: <input type="radio" name="opcija" onclick="prikaziSakrij('dodaj', 'visible');"/> &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp
+Pregledaj: <input type="radio" name="opcija" onclick="prikaziSakrij('pregledaj', 'visible');"/> 
+
+
+
+<div id ="dodaj" style = "margin-top: 50px; visibility:hidden">
+<h2> Dodaj </h2>
+			<table>
+				<tr>
+					<td>
+						Ime i prezime:
+					</td>
+					<td>
+						<input type="text" id="ime"/>
+					</td>
+					<td>
+						<span id="imeProvjera" style="color: red;"></span>
+					</td>
+				</tr>
+				<tr>
+					<td>
+						Broj dresa:
+					</td>
+					<td>
+						<input type="text" id="dres"/>
+					</td>
+					<td>
+						<span id="dresProvjera" style="color: red;"></span>
+					</td>
+				</tr>
+				<tr>
+					<td>
+						Reprezentacija:
+					</td>
+					<td>
+						<select id="reprezentacija">
+							<option>...</option>
+							<option value="BiH">Bosna i Hercegovina</option>
+							<option value="Spanija">Španija</option>
+						</select>
+					</td>
+					<td>
+						<span  style="color: red;"></span>
+					</td>
+				</tr>
+				<tr>
+					<td>
+						Pozicija:
+					</td>
+					<td>
+						<select id="pozicija">
+							<option value="tacke">...</option>
+							<option value="napad">Napad</option>
+							<option value="vezni">Vezni</option>
+							<option value="odbrana">Odbrana</option>
+							<option value="golman">Golman</option>
+						</select>
+					</td>
+					<td>
+						<span id="pozicijaProvjera" style="color: red;"></span>
+					</td>
+				</tr>		
+				<tr>
+					<td>
+						Potvrda registacije:
+					</td>
+					<td>
+						<input type="button" id="btn1" value="POTVRDI" onclick="dodajIgraca()"/>
+					</td>
+					<td>
+						<span style="color: red;"></span>
+					</td>
+				</tr>
+			</table>
+</div>
+
+<div id ="pregledaj" style = "margin-top: 50px; visibility:hidden">
+
+<h3>Pogledaj</h3>
+			<div id="tabela">
+				
+			</div>
+			Boja kartona: <br>
+			Zuti: <input type="radio" name="status" id="status1" value="zeleni"/> &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp
+			Crveni: <input type="radio" name="status" id="status2" value="crveni"/> <br>
+			Označi polje: <br>
+			<input type="text" id="polje">
+			<input type="button" id="btn2" value="KARTON" onclick="dodijeliKarton('polje')"/> &nbsp 
+			<input type="button" id="btn3" value="IZBACI IZ TIMA" onclick="ukoniIzTabele('polje')"/> &nbsp
+			
+			
+			
+</div>
+
+
+
+</div>
+</body>
+
+<script src="funkcijeargentina.js"></script>
+</html>

@@ -1,0 +1,174 @@
+<html>
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+        <title>Internet kupovina</title>
+    </head>
+    
+    <script language="JavaScript" type="text/javascript">
+        
+        function dodajUKorpu(){
+            var proiz = document.getElementById("proizvod").value;
+            var jm = document.getElementById("jm").value;
+            var kolicina = document.getElementById("kolicina").value;
+			var c = document.getElementById("cijena").value;
+            
+			var izlaz = proiz + " " + kolicina + " (" + jm + ") " + kolicina*c + " KM";
+            var artikli = document.getElementById("artikli").value;
+            artikli = artikli + "\n" + izlaz;
+            document.getElementById("artikli").value = artikli;
+				
+        }
+        
+        function zaProzivod(obj, msg){
+            var objV = obj.value;
+            if (objV != "izaberite...") {
+                return true;
+            }
+            else {
+                alert(msg);
+                obj.focus();
+                return false;
+            }
+        }
+        
+        function zaJm(obj, msg){
+            var objV = obj.value;
+            if (objV != "izaberite...") {
+                return true;
+            }
+            else {
+                alert(msg);
+                obj.focus();
+                return false;
+            }
+        }
+        
+        function zaKolicinu(obj, msg){
+		var regKol = /^[0-9]+$/;
+            var objV = obj.value;
+            if (objV.match(regKol) && objV > 0 && objV <= 10) {
+                return true;
+            }
+            else {
+                alert(msg);
+                obj.focus();
+                return false;
+            }
+                    }
+        
+        function zaKomentar(obj, msg){
+            var regCom = /^[0.0-9.0]+$/;
+            var objV = obj.value;
+            if (objV.match(regCom)) {
+                return true;
+            }
+            else {
+                alert(msg);
+                return false;
+            }
+        }
+        
+        function forma(){
+            var proiz = document.getElementById("proizvod");
+            var jm = document.getElementById("jm");
+            var kolicina = document.getElementById("kolicina");
+            var c = document.getElementById("cijena");
+            
+            if (zaProzivod(proiz, 'Morate da izaberete proizvod!')) {
+                if (zaJm(jm, 'Morate izabrati JM')) {
+                    if (zaKolicinu(kolicina, 'Kolicina mora da bude od 1 do 10 i moraju biti brojevi!')) {
+                        if (zaKomentar(c, 'Komentar moze da sadrzi samo slova i brojeve i razmak!')) {
+                            dodajUKorpu();
+                            alert('Uspjesno dodat artikal u korpu!');
+                        }  
+                    }
+                }
+            }
+            return false;
+        }
+        
+        function isprazniKorpu(){
+            document.getElementById("artikli").value = "";
+            document.getElementById("artikli").value = "NAPLACENO! KASA SLOBODNA!";
+            
+        }
+    </script>
+    <body>
+        <h2>Online KUPOVINA</h2>
+        <form action="" name="unos" onsubmit="return forma();">
+            <table>
+                <tr>
+                    <td>
+                        Artikal
+                    </td>
+                    <td>
+                        <select id="proizvod">
+                            <option>izaberite...</option>
+                            <option>Mlijeko</option>
+                            <option>Cedevita</option>
+                            <option>Jaja</option>
+							<option>Kruh</option>
+                        </select>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        JM
+                    </td>
+                    <td>
+                        <select id="jm">
+                            <option>izaberite...</option>
+                            <option>Kom</option>
+                            <option>Kg</option>
+                            <option>Pak</option>
+                        </select>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        Količina
+                    </td>
+                    <td>
+                        <input type="text" id="kolicina">
+                    </td>
+                </tr>
+				<tr>
+                    <td>
+                        Cijena
+                    </td>
+                    <td>
+                        <input type="text" id="cijena">
+                    </td>
+                </tr>
+                
+                <tr>
+                    <td>
+                        <input type="submit" value="Dodaj u artikal!">
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                    <input type="button" value="RAČUN" onclick="window.print();">    
+				    </td>
+                    <td>
+                        <input type="button" value="NAPLATI" onclick="isprazniKorpu();">
+                    </td>
+                </tr>
+            </table>
+            <table>
+                <tr>
+				RAČUN:<br/>
+                    <span>
+                        <textarea id="artikli" cols="30" rows="10">
+                        </textarea>
+                    </span>
+                </tr>
+				<tr>
+				<br/>
+				Datum: <script> var d = new Date(); document.write(d.getDate() + "." + 
+				(d.getMonth()+1) + "." + (1900+d.getYear())); </script>
+				</tr>
+            </table>	
+        </form>
+    </body>
+</html>

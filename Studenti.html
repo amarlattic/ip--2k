@@ -1,0 +1,241 @@
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=windows-utf-8">
+    <title>50 Poena - Vanredni rok</title>
+    <style>
+       
+		body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+        }
+        .hidden {
+            display: none;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+
+        th, td {
+            border: 1px solid #ddd;
+            padding: 8px;
+            text-align: left;
+        }
+
+        th {
+            background-color: #f2f2f2;
+        }
+
+        .red {
+            background-color: red;
+            color: white;
+        }
+
+        .yellow {
+            background-color: yellow;
+        }
+    </style>
+</head>
+<body>
+    <h1>50 Poena - Vanredni rok</h1>
+
+    <form>
+		<label>
+			<input type="radio" name="option" id="btnDodaj" value="dodaj"> Dodaj
+		</label>
+		<label>
+			<input type="radio" name="option" id="btnPogledaj" value="pogledaj"> Pogledaj
+		</label>
+	</form>
+	
+    <div id="dodajStudenta" class="hidden">
+        <h2>Dodaj studenta</h2>
+        <form id="formDodaj">
+            Ime: <input type="text" id="ime" maxlength="15"> <span class="error" id="imeError"></span><br><br>
+            Prezime: <input type="text" id="prezime"> <span class="error" id="prezimeError"></span><br><br>
+            BR indeksa: <input type="text" id="brIndexa"> <span class="error" id="brIndexaError"></span><br><br>
+            Ispitni rok: 
+            <select id="ispitniRok">
+                <option value="">izaberite...</option>
+                <option value="Januar">Januar</option>
+                <option value="Februar">Februar</option>
+                <option value="April">April</option>
+                <option value="Juni">Juni</option>
+                <option value="Juli">Juli</option>
+                <option value="Septembar">Septembar</option>
+                <option value="Oktobar">Oktobar</option>
+            </select> <span class="error" id="ispitniRokError"></span><br><br>
+            Broj poena: <input type="number" id="brojPoena"> <span class="error" id="brojPoenaError"></span><br><br>
+            <button type="button" id="btnPosalji">Pošalji</button>
+        </form>
+    </div>
+
+    <div id="pogledajStudente" class="hidden">
+        <h2>Pogledaj studente</h2>
+        <table id="tabelaStudenata">
+            <thead>
+                <tr>
+                    <th>Rb</th>
+                    <th>Ime</th>
+                    <th>Prezime</th>
+                    <th>BR indeksa</th>
+                    <th>Ispitni rok</th>
+                    <th>Br poena</th>
+                    <th>Izbriši studenta</th>
+                </tr>
+            </thead>
+            <tbody></tbody>
+        </table>
+
+        <button id="btnObracunaj">Obračunaj poene</button>
+
+        <h3>NISU POLOŽILI</h3>
+        <table id="tabelaNisuPolozili">
+            <thead>
+                <tr>
+                    <th>Rb</th>
+                    <th>Ime i Prezime</th>
+                    <th>BR indeksa</th>
+                    <th>Ispitni rok</th>
+                    <th>Br poena</th>
+                </tr>
+            </thead>
+            <tbody></tbody>
+        </table>
+
+        <h3>POLOŽILI</h3>
+        <table id="tabelaPolozili">
+            <thead>
+                <tr>
+                    <th>Rb</th>
+                    <th>Ime i Prezime</th>
+                    <th>BR indeksa</th>
+                    <th>Ispitni rok</th>
+                    <th>Br poena</th>
+                </tr>
+            </thead>
+            <tbody></tbody>
+        </table>
+    </div>
+
+    <script>
+        let studenti = [];
+        let rb = 1;
+
+        function validatePolje(polje, regex, errorMsg) {
+            const value = polje.value.trim();
+            const errorElement = document.getElementById(`${polje.id}Error`);
+            if (!regex.test(value)) {
+                errorElement.textContent = errorMsg;
+                return false;
+            }
+            errorElement.textContent = '';
+            return true;
+        }
+
+        function validateForm() {
+			const imeValid = validatePolje(ime, /^[a-zA-Z]{1,15}$/, "Unesite ime studenta!");
+			const prezimeValid = validatePolje(prezime, /^[a-zA-Z]+$/, "Unesite prezime studenta!");
+			const brIndexaValid = validatePolje(brIndexa, /^[0-9]+$/, "Unesite ispravno index studenta!");
+			const brojPoenaValid = brojPoena.value.trim() !== "" && brojPoena.value >= 0 && brojPoena.value <= 20;
+			const ispitniRokValid = ispitniRok.value !== "";
+
+			brojPoenaError.textContent = brojPoenaValid ? '' : "Unesite broj poena!";
+			ispitniRokError.textContent = ispitniRokValid ? '' : "Izaberite ispitni rok!";
+
+			return imeValid && prezimeValid && brIndexaValid && brojPoenaValid && ispitniRokValid;
+		}
+
+
+        function dodajStudenta() {
+            if (!validateForm()) return;
+
+            const student = {
+                rb: rb++,
+                ime: ime.value.trim(),
+                prezime: prezime.value.trim(),
+                brIndexa: brIndexa.value.trim(),
+                ispitniRok: ispitniRok.value,
+                brojPoena: Number(brojPoena.value)
+            };
+
+            studenti.push(student);
+            const tabela = document.getElementById("tabelaStudenata").querySelector("tbody");
+
+            const row = tabela.insertRow();
+            row.innerHTML = `
+                <td>${student.rb}</td>
+                <td>${student.ime}</td>
+                <td>${student.prezime}</td>
+                <td>${student.brIndexa}</td>
+                <td>${student.ispitniRok}</td>
+                <td>${student.brojPoena}</td>
+                <td><button onclick="obrisiStudenta(${student.rb})">Obriši</button></td>
+            `;
+            row.className = student.brojPoena > 10 ? 'red' : 'yellow';
+
+            ime.value = prezime.value = brIndexa.value = brojPoena.value = "";
+            ispitniRok.value = "";
+
+            alert(`Student je uspješno dodat: ${student.ime} ${student.prezime} (${student.brIndexa})`);
+        }
+
+        function obrisiStudenta(rb) {
+			// Ažuriranje liste studenata
+			studenti = studenti.filter(s => s.rb !== rb);
+
+			// Pronalaženje i brisanje reda iz tabele
+			const tabela = document.getElementById("tabelaStudenata").querySelector("tbody");
+			const redovi = tabela.querySelectorAll("tr");
+
+			redovi.forEach(red => {
+				const redRb = Number(red.cells[0].textContent); // Uzimanje RB vrijednosti iz prvog polja reda
+				if (redRb === rb) {
+					tabela.removeChild(red); // Brisanje odgovarajućeg reda
+				}	
+			});
+		}
+
+        document.getElementById("btnDodaj").addEventListener("click", () => {
+            document.getElementById("dodajStudenta").classList.remove("hidden");
+            document.getElementById("pogledajStudente").classList.add("hidden");
+        });
+
+        document.getElementById("btnPogledaj").addEventListener("click", () => {
+            document.getElementById("dodajStudenta").classList.add("hidden");
+            document.getElementById("pogledajStudente").classList.remove("hidden");
+        });
+
+        document.getElementById("btnPosalji").addEventListener("click", dodajStudenta);
+    
+		function obracunajPoene() {
+			// Ciscenje tabela
+			const nisuPoloziliTabela = document.getElementById("tabelaNisuPolozili").querySelector("tbody");
+			const poloziliTabela = document.getElementById("tabelaPolozili").querySelector("tbody");
+			nisuPoloziliTabela.innerHTML = '';
+			poloziliTabela.innerHTML = '';
+
+			// Popunjavanje tabela
+			studenti.forEach(student => {
+				const row = document.createElement("tr");
+				row.innerHTML = `
+					<td>${student.rb}</td>
+					<td>${student.ime} ${student.prezime}</td>
+					<td>${student.brIndexa}</td>
+					<td>${student.ispitniRok}</td>
+					<td>${student.brojPoena}</td>
+				`;
+				if (student.brojPoena < 10) {
+					nisuPoloziliTabela.appendChild(row);
+				} else {
+					poloziliTabela.appendChild(row);
+				}
+			});
+		}
+		document.getElementById("btnObracunaj").addEventListener("click", obracunajPoene);
+		
+	</script>
+</body>
+</html>

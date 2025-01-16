@@ -1,0 +1,82 @@
+<html>
+<head>
+<meta http-equiv="Content Type" content="text/html; charset=windows-utf-8">
+
+<script>
+	function prikaz(broj) {
+	document.getElementById("result").value+=broj
+	}
+	
+	function racunaj()
+	{
+	let x=document.getElementById("result").value
+	let y=eval(x)
+	document.getElementById("result").value=y
+	}
+	
+	function brisi()
+	{
+		document.getElementById("result").value=""
+	}
+
+	</script>
+	
+	<style>
+	
+	input[type="text"]
+	{
+	background-color:lightgreen;
+	width:100%;
+	}
+	</style>
+</head>
+
+<body>
+	<h3 style="text-align:center">KALKULATOR</h3>
+	<table align="center" border="1" style="background-color:lightgrey">
+		<tr>
+			<td colspan="4" style="height:80px">
+			<input type="text" style="height:70px" id="result"/></td>
+		</tr>
+		<tr>
+			<td><input type="button" style="height:40px" value="    1    " onClick="prikaz('1')"/></td>
+			<td><input type="button" style="height:40px" value="    2    " onClick="prikaz('2')"/></td>
+			<td><input type="button" style="height:40px" value="    3    " onClick="prikaz('3')"/></td>
+			<td><input type="button" style="height:40px" value="    +    " onClick="prikaz('+')"/></td>
+		</tr>
+		
+		<tr>
+			<td><input type="button" style="height:40px" value="    4    " onClick="prikaz('4')"/></td>
+			<td><input type="button" style="height:40px" value="    5    " onClick="prikaz('5')"/></td>
+			<td><input type="button" style="height:40px" value="    6    " onClick="prikaz('6')"/></td>
+			<td><input type="button" style="height:40px" value="    -    " onClick="prikaz('-')"/></td>
+		</tr>
+		<tr>
+			<td><input type="button" style="height:40px" value="    7    " onClick="prikaz('7')"/></td>
+			<td><input type="button" style="height:40px" value="    8    " onClick="prikaz('8')"/></td>
+			<td><input type="button" style="height:40px" value="    9    " onClick="prikaz('9')"/></td>
+			<td><input type="button" style="height:40px" value="    *    " onClick="prikaz('*')"/></td>
+		</tr>
+		<tr>
+			<td><input type="button" style="height:40px" value="    .    " onClick="prikaz('.')"/></td>
+			<td><input type="button" style="height:40px" value="    0    " onClick="prikaz('0')"/></td>
+			<td><input type="button" style="height:40px" value="    =    " onClick="racunaj()"/></td>
+			<td><input type="button" style="height:40px" value="    /    " onClick="prikaz('/')"/></td>
+		</tr>
+		
+		<tr>
+		<td colspan="4"><input type="button" style="height:40px" value="                    BRISANJE                    " onClick="brisi()"/></td>
+		</tr>
+		
+	</table>
+	
+	
+	
+	
+	
+	
+
+
+
+
+</html>

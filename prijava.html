@@ -1,0 +1,83 @@
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset-utf-8">
+<title></title>
+</head>
+
+<body>
+
+<div style="width: 50%; margin: 0 auto;">
+<h2>Prijava na Fakultet UNBI</h2>
+Dodaj <input type="radio" name="opcija" onclick="prikaziSakrij('dodaj', 'visible')"> &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp 
+Pogledaj <input type="radio" name="opcija" onclick="prikaziSakrij('pregledaj', 'visible')">
+
+<div id="dodaj" style="margin-top: 50px; visibility:hidden">
+<h2>Dodaj</h2>
+<table>
+<tr>
+<td> Ime i prezime: </td>
+<td> <input type="text" id="ime"> </td>
+<td> <span id="imeProvjera" style="color: red;"></span> </td>
+</tr>
+<tr>
+<td> Broj JMBG: </td>
+<td> <input type="text" id="jmbg"> </td>
+<td> <span id="jmbgProvjera" style="color: red;"></span> </td>
+</tr>
+<tr>
+<td> Spol studenta: </td>
+<td> 
+<select id="spol">
+<option>...</option>
+<option value="M">Muški</option>
+<option value="Z">Ženski</option>
+</select>
+</td>
+<td> <span id="spolProvjera" style="color: red;"></span> </td>
+</tr>
+<tr>
+<td> Fakultet: </td>
+<td> 
+<select id="fakultet">
+<option>...</option>
+<option value="TF">Tehnički fakultet</option>
+<option value="PRF">Pravni fakultet</option>
+<option value="EF">Ekomonski fakultet</option>
+<option value="BTF">Biotehnički fakultet</option>
+<option value="PF">Pedagoški fakultet</option>
+<option value="IPF">Islamski pedagoški fakultet</option>
+<option value="FZS">Fakultet zdravstvenih studija</option>
+<option value="PRF">Pravni fakultet</option>
+</select>
+</td>
+<td> <span style="color: red;"></span> </td>
+</tr>
+<tr>
+<td> Potvrda registracije: </td>
+<td> <input type="button" id="btn1" value="POTVRDI" onclick="dodajStudenta()"> </td>
+<td> <span style="color: red;"></span> </td>
+</tr>
+</table>
+</div>
+
+<div id="pregledaj" style="margin-top: 50px; visibility:hidden">
+<h3>Spisak prijavljenih studenata</h3>
+<div id="tabela">
+
+</div>
+Status: <br>
+Zadovoljio: <input type="radio" name="status" id="status1" value="zeleni">
+&nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp
+Nije zadovoljio: <input type="radio" name="status" id="status2" value="crveni"> <br>
+Označi polje: <br>
+<input type="text" id="polje">
+<input type="button" id="btn2" value="STATUS" onclick="dodijeliStatus('polje')"> &nbsp 
+<input type="button" id="btn3" value="BRISANJE" onclick="ukloniIzTabele('polje')"> &nbsp 
+<input type="button" id="btn4" value="PRINTANJE" onclick="window.print()"> 
+</div>
+
+</div>
+<script src="funkcijeprijava.js"></script>
+</body>
+</html>
+

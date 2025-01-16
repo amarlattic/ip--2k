@@ -1,0 +1,103 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title> BiH Estonija </title>
+</head>
+
+<body>
+<!-- Glavna tabela -->
+<table border = "1px" width = "50%" align = "center" > 
+<tr style = "background: #DDDDDD">
+<td>
+<center> <b><i> Internet programiranje (II kolokvij) </i> </b> </center>
+</td>
+</tr>
+
+<tr>
+<td>
+<table align = "center">
+<tr>
+<td align = "center"> <h3> BOSNA I HERCEGOVINA </h3> </td> <td align = "center"> <h3> ESTONIJA </h3> </td>
+</tr>
+<tr>
+<td> <img src = "bih.jpg" width = "150px" height = "150px"> </td> <td> <img src = "estonija.jpg" width = "150px" height = "150px"> </td>
+</tr>
+</table>
+</td>
+</tr>
+
+<tr align = "center">
+<td>
+<table>
+
+<tr>
+<td>
+Ime i prezime:
+</td>
+<td>
+<input type = "text" id = "ime">
+</td>
+<td>
+<span id = "imeProvjera" style = "color: red">
+</td>
+</tr>
+
+<tr>
+<td>
+Broj dresa:
+</td>
+<td>
+<input type = "text" id = "broj">
+</td>
+<td>
+<span id = "brojProvjera" style = "color: red">
+</td>
+</tr>
+
+<tr>
+<td>
+Tim:
+</td>
+<td>
+<select id = "tim">
+<option value = "bos"> Bosna i Hercegovina</option>
+<option value = "esto"> Estonija </option>
+</select>
+</td>
+<td>
+<span id = "timProvjera" style = "color: red">
+</td>
+</tr>
+</table>
+
+<input type = "button" value = "DODAJ IGRAČA" onclick = "noviUnos()"/> <input type = "button" value = "PONIŠTI UNOS" onclick = "ponistiUnos()" />
+</td>
+</tr>
+
+<tr style = "background: #DDDDDD">
+<td>
+<center> <i> Ime prezime broj indeksa</i> </center>
+</td>
+</tr>
+</table>
+
+<!-- Sekcija za tabele igrača izvan glavne tabele -->
+<table width="100%" align="center" style="margin-top: 20px;">
+<tr>
+<td width="50%" align="center">
+    <div id="bosanski"></div>
+</td>
+<td width="50%" align="center">
+    <div id="estonski"></div>
+</td>
+</tr>
+</table>
+
+</body>
+
+<script src="bihestonija.js"></script>
+
+</html>

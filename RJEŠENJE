@@ -1,0 +1,200 @@
+HTML - FILE IMENOVATI index.HTML
+
+
+<!DOCTYPE html>
+<html lang="hr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Izbor Matematičke Operacije</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <h1>Izbor Matematičke Operacije</h1>
+        <form id="mathForm">
+            <p>Odaberi operaciju:</p>
+            <div class="operations">
+                <label><input type="radio" name="operation" value="add"> Sabiranje</label>
+                <label><input type="radio" name="operation" value="subtract"> Oduzimanje</label>
+                <label><input type="radio" name="operation" value="multiply"> Množenje</label>
+                <label><input type="radio" name="operation" value="divide"> Dijeljenje</label>
+            </div>
+
+            <label for="number1">Prvi broj:</label>
+            <input type="number" id="number1" name="number1" required>
+
+            <label for="number2">Drugi broj:</label>
+            <input type="number" id="number2" name="number2" required>
+
+            <div class="buttons">
+                <button type="button" id="calculateBtn">Izvrši operaciju</button>
+                <button type="reset">Poništi</button>
+                <button type="button" id="exitBtn">Izlaz</button>
+            </div>
+
+            <h3>Rezultat:</h3>
+            <textarea id="result" readonly></textarea>
+        </form>
+        <div id="dateTime"></div>
+    </div>
+    <script src="script.js"></script>
+</body>
+</html>
+
+
+------------------------------------------------------------
+
+
+
+CSS FILE - imenovati style.css
+
+
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f4f4f4;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    margin: 0;
+}
+
+.container {
+    background: #fff;
+    padding: 20px 30px;
+    border-radius: 10px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    width: 350px;
+    text-align: center;
+}
+
+h1 {
+    font-size: 20px;
+    margin-bottom: 20px;
+}
+
+.operations {
+    margin-bottom: 15px;
+}
+
+label {
+    display: inline-block;
+    margin-right: 15px;
+    font-size: 14px;
+}
+
+input[type="number"] {
+    width: 100%;
+    padding: 8px;
+    margin: 10px 0;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 14px;
+}
+
+textarea {
+    width: 100%;
+    height: 80px;
+    margin-top: 10px;
+    padding: 8px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    resize: none;
+    font-size: 14px;
+}
+
+.buttons {
+    display: flex;
+    justify-content: space-between;
+    margin: 15px 0;
+}
+
+button {
+    padding: 8px 12px;
+    font-size: 14px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+#calculateBtn {
+    background-color: #28a745;
+    color: #fff;
+}
+
+button[type="reset"] {
+    background-color: #dc3545;
+    color: #fff;
+}
+
+#exitBtn {
+    background-color: #000;
+    color: #fff;
+}
+
+#dateTime {
+    margin-top: 10px;
+    font-size: 12px;
+    color: #555;
+    border: 1px solid #ddd;
+    padding: 5px;
+    border-radius: 5px;
+}
+
+
+
+JAVASCRIPT FILE - IMENOVATI script.js
+
+
+document.getElementById("calculateBtn").addEventListener("click", function () {
+    const number1 = parseFloat(document.getElementById("number1").value);
+    const number2 = parseFloat(document.getElementById("number2").value);
+    const operation = document.querySelector('input[name="operation"]:checked');
+
+    if (!operation) {
+        alert("Odaberite operaciju!");
+        return;
+    }
+
+    let result;
+    switch (operation.value) {
+        case "add":
+            result = number1 + number2;
+            break;
+        case "subtract":
+            result = number1 - number2;
+            break;
+        case "multiply":
+            result = number1 * number2;
+            break;
+        case "divide":
+            if (number2 === 0) {
+                alert("Dijeljenje s nulom nije dozvoljeno!");
+                return;
+            }
+            result = number1 / number2;
+            break;
+        default:
+            alert("Nepoznata operacija!");
+            return;
+    }
+
+    document.getElementById("result").value = `Rezultat: ${result}`;
+});
+
+document.getElementById("exitBtn").addEventListener("click", function () {
+    if (confirm("Jeste li sigurni da želite izaći?")) {
+        window.close();
+    }
+});
+
+function updateDateTime() {
+    const dateTimeDiv = document.getElementById("dateTime");
+    setInterval(() => {
+        const now = new Date();
+        dateTimeDiv.textContent = now.toLocaleString("hr-HR");
+    }, 1000);
+}
+
+updateDateTime();

@@ -1,0 +1,198 @@
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Evidencija studenata Univerziteta u Bihaću</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #e9f5fb;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+        .container {
+            background-color: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            width: 600px;
+        }
+        h1 {
+            text-align: center;
+        }
+        .form-group {
+            margin-bottom: 15px;
+        }
+        .form-group label {
+            display: inline-block;
+            margin-bottom: 8px;
+        }
+        .form-group input, .form-group select {
+            width: 100%;
+            padding: 8px;
+            box-sizing: border-box;
+        }
+        .form-group input[type="radio"] {
+            width: auto;
+            margin-right: 10px;
+        }
+        .buttons button {
+            padding: 10px 20px;
+            border: none;
+            border-radius: 6px;
+            margin-right: 12px;
+            color: white;
+            cursor: pointer;
+        }
+        .buttons .add-btn {
+            background-color: #4CAF50;
+        }
+        .buttons .reset-btn {
+            background-color: #2196F3;
+        }
+        .buttons .delete-btn {
+            background-color: #f44336;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+            background-color: #fff;
+            border-radius: 10px;
+            overflow: hidden;
+        }
+        table th, table td {
+            padding: 10px;
+            text-align: left;
+            border: 2px solid #000;
+        }
+        table th {
+            background-color: #f2f2f2;
+        }
+        table tr:nth-child(even) {
+            background-color: #f9f9f9;
+        }
+        .error {
+            color: red;
+            font-size: 14px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Evidencija studenata Univerziteta u Bihaću</h1>
+        <div class="form-group">
+            <label for="redniBroj">Redni broj:</label>
+            <input type="number" id="redniBroj" required>
+        </div>
+        <div class="form-group">
+            <label for="ime">Ime:</label>
+            <input type="text" id="ime" required>
+        </div>
+        <div class="form-group">
+            <label for="prezime">Prezime:</label>
+            <input type="text" id="prezime" required>
+        </div>
+        <div class="form-group">
+            <label for="email">Email:</label>
+            <input type="email" id="email" required>
+        </div>
+        <div class="form-group">
+            <label for="fakultet">Fakultet:</label>
+            <select id="fakultet">
+                <option value="Pedagoški fakultet">Pedagoški fakultet</option>
+                <option value="Tehnički fakultet">Tehnički fakultet</option>
+                <option value="Pravni fakultet">Pravni fakultet</option>
+            </select>
+        </div>
+        <div class="form-group">
+            <label>Spol:</label>
+            <input type="radio" name="spol" value="Muški" checked> Muški
+            <input type="radio" name="spol" value="Ženski"> Ženski
+        </div>
+        <div class="buttons">
+            <button class="add-btn" onclick="dodajStudenta()">Dodaj Studenta</button>
+            <button class="reset-btn" onclick="obrisiFormu()">Izbriši unos</button>
+        </div>
+        <div class="error" id="errorMsg"></div>
+        <table id="studentTable">
+            <thead>
+                <tr>
+                    <th>Redni broj</th>
+                    <th>Ime</th>
+                    <th>Prezime</th>
+                    <th>Email</th>
+                    <th>Fakultet</th>
+                    <th>Spol</th>
+                    <th>Akcije</th>
+                </tr>
+            </thead>
+            <tbody></tbody>
+        </table>
+    </div>
+
+    <script>
+        let studenti = [];
+
+        function dodajStudenta() {
+            let redniBroj = document.getElementById('redniBroj').value;
+            let ime = document.getElementById('ime').value;
+            let prezime = document.getElementById('prezime').value;
+            let email = document.getElementById('email').value;
+            let fakultet = document.getElementById('fakultet').value;
+            let spol = document.querySelector('input[name="spol"]:checked').value;
+            let errorMsg = document.getElementById('errorMsg');
+
+            errorMsg.textContent = '';
+
+            if (!redniBroj || studenti.some(s => s.redniBroj == redniBroj)) {
+                errorMsg.textContent = 'Student sa ovim rednim brojem već postoji.';
+                return;
+            }
+
+            if (!email.includes('@')) {
+                errorMsg.textContent = 'Email mora sadržavati znak @.';
+                return;
+            }
+
+            studenti.push({ redniBroj, ime, prezime, email, fakultet, spol });
+            kreirajAzurirajTabelu();
+            obrisiFormu();
+        }
+
+        function kreirajAzurirajTabelu() {
+            let tbody = document.querySelector('#studentTable tbody');
+            tbody.innerHTML = '';
+            studenti.forEach(student => {
+                let row = tbody.insertRow();
+                row.innerHTML = `
+                    <td>${student.redniBroj}</td>
+                    <td>${student.ime}</td>
+                    <td>${student.prezime}</td>
+                    <td>${student.email}</td>
+                    <td>${student.fakultet}</td>
+                    <td>${student.spol}</td>
+                    <td><button class="delete-btn" onclick="obrisiStudenta('${student.redniBroj}')">Obriši</button></td>
+                `;
+            });
+        }
+
+        function obrisiFormu() {
+            document.getElementById('redniBroj').value = '';
+            document.getElementById('ime').value = '';
+            document.getElementById('prezime').value = '';
+            document.getElementById('email').value = '';
+            document.getElementById('fakultet').value = 'Pedagoški fakultet';
+            document.querySelector('input[name="spol"][value="Muški"]').checked = true;
+        }
+
+        function obrisiStudenta(redniBroj) {
+            studenti = studenti.filter(student => student.redniBroj != redniBroj);
+            kreirajAzurirajTabelu();
+        }
+    </script>
+</body>
+</html>
